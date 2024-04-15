@@ -1,29 +1,85 @@
-<main class="h-screen">
-  <div class="search sticky top-0 z-50 py-4 flex gap-4 justify-center items-center">
-    <input type="text" [(ngModel)]="username" class=" outline-none rounded-lg p-2 bg-gray-200 border-current"
-      placeholder="Enter GitHub username">
-    <button (click)="searchRepositories()">serach</button>
-    <br>
-  </div>
-  <div class="profile flex gap-4  items-center">
-    <div class="img">
-      <img src="{{user.avatar_url}}" class="rounded-full border-2 border-gray-400 p-2 h-24" alt="">
-    </div>
-    <div class="info">
-      <p>{{user.name}}</p>
-      <p>{{user.bio}}</p>
-      <p>{{user.location}}</p>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div *ngFor="let repo of repositories" class="col-md-6">
-        <div class="p-4 border-2 rounded-md mb-4">
-          <a [href]="repo.html_url" target="_blank" class="text-sky-400 font-bold text-2xl">{{ repo.name }}</a>
-          <p>{{repo.description}}</p>
-        </div>
+<div class="flex justify-center">
+  <main class="h-screen">
+    <div class="search sticky top-0 z-50 py-4 flex gap-4 justify-center items-center">
+      <!-- Search input and button -->
+      <div class="rounded-lg p-2 bg-gray-200 border-current flex items-center">
+        <input type="text" [(ngModel)]="username" class="outline-none bg-transparent" autofocus
+          placeholder="Enter GitHub username">
+        <button (click)="searchRepositories()" class="material-symbols-outlined">search</button>
+      </div>
+
+      <!-- Page size dropdown -->
+      <div>
+        <select [(ngModel)]="pageSize" (change)="searchRepositories()" class="text-white bg-blue-400 outline-none">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
       </div>
     </div>
-  </div>
 
-</main>
+    <!-- Loading indicator -->
+    <div *ngIf="loading"><img src="../assets/loader.gif" alt=""></div>
+
+    <!-- Content -->
+    <div *ngIf="!loading" class="content">
+      <!-- Profile info -->
+      <div class="profile flex gap-4 items-center">
+        <!-- Avatar -->
+        <div class="img" *ngIf="user.avatar_url">
+          <img src="{{user.avatar_url}}" class="rounded-full border-2 border-gray-400 p-2 h-24" alt="">
+        </div>
+        <!-- User info -->
+        <div class="info">
+          <p class="font-bold">{{user.name}}</p>
+          <p>{{user.bio}}</p>
+          <p *ngIf="user.location" class="flex items-center gap-2"><span
+              class="material-symbols-outlined">pin_drop</span>{{user.location}}</p>
+        </div>
+      </div>
+
+      <!-- Repositories -->
+      <div class="container">
+        <div class="row">
+          <div *ngFor="let repo of displayedRepositories" class="flex flex-wrap w-full">
+            <!-- Repository item -->
+            <div class="p-4 border-2 rounded-md mb-4 w-6/6 flex flex-col gap-2">
+              <a [href]="repo.html_url" target="_blank" class="text-blue-400 font-bold text-2xl">{{ repo.name }}</a>
+              <p>{{repo.description}}</p>
+              <!-- Languages -->
+              <div *ngIf="repo.languages" class="flex flex-wrap gap-2">
+                <div class="bg-blue-400 rounded-3xl p-2" *ngFor="let language of repo.languages">{{ language }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination bar -->
+      <div *ngIf="repositories.length>0" class="pagination  mt-4">
+
+        <ng-container class=" flex justify-center" *ngFor="let page of getPageArray()">
+          <button class="px-4 py-2 bg-gray-200 text-gray-600" [class.font-bold]="page === currentPage"
+            *ngIf="page <= totalPages" (click)="goToPage(page)">
+            {{ page }}
+          </button>
+        </ng-container>
+        <div class=" flex justify-between items-center m-2">
+          <button class=" flex items-center gap-2 px-4 py-2 border-2 rounded-3xl" [disabled]="currentPage === 1"
+            (click)="previousPage()"><span class="material-symbols-outlined">
+              arrow_back
+            </span>Older</button>
+          <button class=" flex items-center gap-2 px-4 py-2 border-2 rounded-3xl"
+            [disabled]="currentPage === totalPages" (click)="nextPage()">Newer<span class="material-symbols-outlined">
+              arrow_right_alt
+            </span></button>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </main>
+</div>

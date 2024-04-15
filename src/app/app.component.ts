@@ -6,51 +6,102 @@ interface User {
   avatar_url: string;
   bio: string;
   location: string;
-  public_repos: number;
-  followers: number;
-  following: number;
 }
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title: string = 'GIT REPO FINDER';
+export class AppComponent implements OnInit {
   username: string = '';
-  repositories: any[] = [];
   user: User = {
     name: '',
     avatar_url: '',
     bio: '',
     location: '',
-    public_repos: 0,
-    followers: 0,
-    following: 0,
   };
+  repositories: any[] = [];
+  displayedRepositories: any[] = [];
+  loading: boolean = false;
+  pageSize: number = 10;
+  currentPage: number = 1;
+  totalPages: number = 1;
+
   constructor(private apiService: ApiService) {}
 
+  ngOnInit() {}
+
   searchRepositories() {
-    this.apiService.getUser(this.username).subscribe(
-      (data: any) => {
-        this.user = data;
-        console.log(this.user);
-        this.apiService.getRepos(this.username).subscribe(
-          (data: any) => {
-            this.repositories = data;
-            console.log(this.repositories);
-          },
-          (error) => {
-            console.error('Error fetching repositories:', error);
-          }
-        );
-      },
-      (error) => {
-        console.error('Error fetching user:', error);
-      }
+    this.loading = true;
+    this.apiService
+      .getUser(this.username, this.currentPage, this.pageSize)
+      .subscribe(
+        (userData: any) => {
+          this.user = userData;
+          this.apiService
+            .getRepos(this.username, this.currentPage, this.pageSize)
+            .subscribe(
+              (reposData: any[]) => {
+                this.repositories = reposData;
+                this.totalPages = Math.ceil(
+                  this.repositories.length / this.pageSize
+                );
+                this.updateDisplayedRepositories();
+                this.loading = false;
+              },
+              (error) => {
+                console.error('Error fetching repositories:', error);
+                this.loading = false;
+              }
+            );
+        },
+        (error) => {
+          console.error('Error fetching user:', error);
+          this.loading = false;
+        }
+      );
+  }
+  getPageArray(): number[] {
+    const numPagesToShow = Math.min(this.totalPages, 10); // Show up to 10 pages
+    const startPage = Math.max(
+      1,
+      this.currentPage - Math.floor(numPagesToShow / 2)
+    );
+    const endPage = Math.min(this.totalPages, startPage + numPagesToShow - 1);
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i
     );
   }
-  ngOnInit() {
-    // this.apiService.getUser(this.username).subscribe(console.log);
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updateDisplayedRepositories();
+    }
+  }
+
+  updateDisplayedRepositories() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = Math.min(
+      startIndex + this.pageSize,
+      this.repositories.length
+    );
+    this.displayedRepositories = this.repositories.slice(startIndex, endIndex);
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateDisplayedRepositories();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateDisplayedRepositories();
+    }
   }
 }
