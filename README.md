@@ -5,8 +5,8 @@
 ## Overview
 
 This Angular 17 single-page application (SPA) is designed to fetch and display public GitHub repositories belonging to a user. It utilizes the GitHub API for fetching user information and repositories. Pagination is implemented on the server-side to improve performance, and Tailwind CSS is used for styling.
+![screencapture-localhost-4200-2024-04-15-20_50_46](https://github.com/harshkhavale/fyle-internship-challenge-23/assets/91471322/75d11627-688c-41e2-b9fd-68aaa54b5a43)
 
-e:\screencapture-localhost-4200-2024-04-15-20_50_46.png
 ## Features
 
 - 🔍 Search bar to input GitHub username and display repositories
@@ -28,7 +28,7 @@ e:\screencapture-localhost-4200-2024-04-15-20_50_46.png
 1. Clone the repository:
 
    ```
-   git clone <your_repo_url>
+   git clone https://github.com/harshkhavale/fyle-internship-challenge-23
    ```
 
 2. Install dependencies:
@@ -66,7 +66,7 @@ The application is deployed to vercel. Access it [here](<https://fyle-internship
 
 ## Video Introduction
 
-[Link to video introduction](<insert Google Drive link>)
+[Link to video introduction](<https://drive.google.com/file/d/1TZw9-1mz7km2LTIv1eIQqNAFSSBDaR7e/view?usp=drive_link>)
 
 
 
