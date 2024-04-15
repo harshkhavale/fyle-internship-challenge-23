@@ -6,23 +6,22 @@
 
 This Angular 17 single-page application (SPA) is designed to fetch and display public GitHub repositories belonging to a user. It utilizes the GitHub API for fetching user information and repositories. Pagination is implemented on the server-side to improve performance, and Tailwind CSS is used for styling.
 
-![GitHub Repositories Listing Page](<insert screenshot or gif of your application>)
-
+e:\screencapture-localhost-4200-2024-04-15-20_50_46.png
 ## Features
 
-- Search bar to input GitHub username and display repositories
-- Zero state handling for non-existent users
-- Pagination with server-side implementation
-- Dropdown to select page size
-- Skeleton loader during API calls
-- Cached GET API calls to external APIs
-- Unit tests for 1 component and 1 service with 100% code coverage
+- 🔍 Search bar to input GitHub username and display repositories
+- 📌 Zero state handling for non-existent users
+- 📄 Pagination with server-side implementation
+- 📊 Dropdown to select page size
+- 🪦 Skeleton loader during API calls
+- 📦 Cached GET API calls to external APIs
+- 🧪 Unit tests for 1 component and 1 service with 100% code coverage
 
 ## Requirements
 
-- Angular 17+
-- Tailwind CSS
-- GitHub API (REST)
+- 🅰️ Angular 17+
+- 🎨 Tailwind CSS
+- 🌐 GitHub API (REST)
 
 ## Getting Started
 
@@ -63,7 +62,7 @@ ng test
 
 ## Deployment
 
-The application is deployed to <insert deployment platform>. Access it [here](<https://fyle-internship-challenge-23-lilac.vercel.app/>).
+The application is deployed to vercel. Access it [here](<https://fyle-internship-challenge-23-lilac.vercel.app/>).
 
 ## Video Introduction
 

@@ -52,7 +52,7 @@
       <!-- Repositories -->
       <div class="container">
         <div class="flex flex-wrap gap-2">
-          <div *ngFor="let repo of displayedRepositories" class="w-full m-1 md:w-5/12">
+          <div *ngFor="let repo of repositories" class="w-full m-1 md:w-5/12">
             <!-- Repository item -->
             <div class="p-4 border-2 rounded-md h-full">
               <a [href]="repo.html_url" target="_blank" class="text-blue-400 font-bold text-2xl">{{ repo.name }}</a>
