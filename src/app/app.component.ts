@@ -50,7 +50,6 @@ export class AppComponent implements OnInit {
                   this.repositories.length / this.pageSize
                 );
 
-                this.updateDisplayedRepositories();
                 this.fetchLanguagesForRepositories();
 
                 this.loading = false;
@@ -78,47 +77,5 @@ export class AppComponent implements OnInit {
         }
       );
     });
-  }
-  getPageArray(): number[] {
-    const numPagesToShow = Math.min(this.totalPages, 10); // Show up to 10 pages
-    const startPage = Math.max(
-      1,
-      this.currentPage - Math.floor(numPagesToShow / 2)
-    );
-    const endPage = Math.min(this.totalPages, startPage + numPagesToShow - 1);
-    return Array.from(
-      { length: endPage - startPage + 1 },
-      (_, i) => startPage + i
-    );
-  }
-
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.updateDisplayedRepositories();
-    }
-  }
-
-  updateDisplayedRepositories() {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = Math.min(
-      startIndex + this.pageSize,
-      this.repositories.length
-    );
-    this.displayedRepositories = this.repositories.slice(startIndex, endIndex);
-  }
-
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updateDisplayedRepositories();
-    }
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updateDisplayedRepositories();
-    }
   }
 }

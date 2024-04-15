@@ -1,43 +1,90 @@
-# Fyle Frontend Challenge
+---
 
-## Who is this for?
+# Fyle Frontend Development Challenge
 
-This challenge is meant for candidates who wish to intern at Fyle and work with our engineering team. The candidate should be able to commit to at least 6 months of dedicated time for internship.
+## Overview
 
-## Why work at Fyle?
+This Angular 17 single-page application (SPA) is designed to fetch and display public GitHub repositories belonging to a user. It utilizes the GitHub API for fetching user information and repositories. Pagination is implemented on the server-side to improve performance, and Tailwind CSS is used for styling.
 
-Fyle is a fast-growing Expense Management SaaS product. We are ~40 strong engineering team at the moment. 
+![GitHub Repositories Listing Page](<insert screenshot or gif of your application>)
 
-We are an extremely transparent organization. Check out our [careers page](https://careers.fylehq.com) that will give you a glimpse of what it is like to work at Fyle. Also, check out our Glassdoor reviews [here](https://www.glassdoor.co.in/Reviews/Fyle-Reviews-E1723235.htm). You can read stories from our teammates [here](https://stories.fylehq.com).
+## Features
 
-## Challenge outline
+- Search bar to input GitHub username and display repositories
+- Zero state handling for non-existent users
+- Pagination with server-side implementation
+- Dropdown to select page size
+- Skeleton loader during API calls
+- Cached GET API calls to external APIs
+- Unit tests for 1 component and 1 service with 100% code coverage
 
-This challenge involves implementing application using github api. 
+## Requirements
 
-The services that you need to use are already implemented - check out ApiService.
+- Angular 17+
+- Tailwind CSS
+- GitHub API (REST)
 
-You can see details of this challenge [here](https://fyleuniverse.notion.site/fyleuniverse/Fyle-Frontend-development-challenge-cb5085e5e0864e769e7b98c694400aaa)
+## Getting Started
 
-__Note__ - This challenge is in angular. We work on angular frameworks & after you join we expect the same from you. Hence it is required to complete this assignement in angular itself.
+1. Clone the repository:
 
-## What happens next?
+   ```
+   git clone <your_repo_url>
+   ```
 
-You will hear back within 48 hours from us via email.
+2. Install dependencies:
 
-## Installation
+   ```
+   npm install
+   ```
 
-1. Fork this repository to your github account.
-2. Clone the forked repository and proceed with steps mentioned below.
+3. Run the application:
 
-### Install requirements
-* Install angular cli [Ref](https://angular.io/cli)
-* `npm install` in this repository 
+   ```
+   ng serve
+   ```
 
-## Development server
+4. Open your browser and navigate to `http://localhost:4200`
 
-Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+## Usage
 
-## Further help
+- Enter a valid GitHub username in the search bar and click the search button.
+- View the repositories listed with topics.
+- Navigate through pages using the pagination controls.
+- Adjust the page size using the dropdown.
 
-Visit the [Angular Documentation](https://angular.io/guide/styleguide) to learn more.
-Styling is to be strictly done with [Tailwind](https://tailwindcss.com/docs/installation).
+## Testing
+
+To run unit tests, use the following command:
+
+```
+ng test
+```
+
+## Deployment
+
+The application is deployed to <insert deployment platform>. Access it [here](<https://fyle-internship-challenge-23-lilac.vercel.app/>).
+
+## Video Introduction
+
+[Link to video introduction](<insert Google Drive link>)
+
+
+
+---
+
+## Thoughts on the Assignment
+
+1. **Introduction**: My name is Harsh Khavale. I am currently pursuing Masters in Computer Applications, and my hobbies include exploring new technologies and contributing to open-source projects. Yes, I will be available for a full-time internship for 6 months.
+
+2. **Most Challenging Part**: The most challenging part of the assignment was implementing the server-side pagination while ensuring efficient performance. It required careful consideration of how to manage API calls and update the UI dynamically without compromising user experience.
+
+3. **Changes to the Assignment**: If I were to change anything about the assignment, I would introduce a more comprehensive error handling mechanism to gracefully handle situations such as API rate limits, network failures, or unexpected responses. Additionally, providing clearer documentation or examples for certain requirements, such as unit testing, would have been helpful to ensure consistency across submissions and streamline the evaluation process.
+
+---
+
+## Contact
+
+For any questions or inquiries, please contact harshkhavale1102@gmail.com.
+
+---
