@@ -6,6 +6,7 @@ interface User {
   avatar_url: string;
   bio: string;
   location: string;
+  html_url: string;
 }
 
 @Component({
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     avatar_url: '',
     bio: '',
     location: '',
+    html_url: '',
   };
   repositories: any[] = [];
   displayedRepositories: any[] = [];
@@ -47,7 +49,10 @@ export class AppComponent implements OnInit {
                 this.totalPages = Math.ceil(
                   this.repositories.length / this.pageSize
                 );
+
                 this.updateDisplayedRepositories();
+                this.fetchLanguagesForRepositories();
+
                 this.loading = false;
               },
               (error) => {
@@ -61,6 +66,18 @@ export class AppComponent implements OnInit {
           this.loading = false;
         }
       );
+  }
+  fetchLanguagesForRepositories() {
+    this.repositories.forEach((repo) => {
+      this.apiService.getLanguages(repo.languages_url).subscribe(
+        (languagesData: any) => {
+          repo.languages = Object.keys(languagesData); // Assuming the response contains an object with language names as keys
+        },
+        (error) => {
+          console.error('Error fetching languages:', error);
+        }
+      );
+    });
   }
   getPageArray(): number[] {
     const numPagesToShow = Math.min(this.totalPages, 10); // Show up to 10 pages
